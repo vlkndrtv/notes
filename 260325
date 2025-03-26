@@ -1,9 +1,12 @@
 INTOGROUP_CRM
   MYSQL
-    widgets
-      1 - ЗАМЕНА АТРИБУТА id_widget С PRIMARY KEY НА UNIQUE
-      2 - ЗАМЕНА FOREIGN KEY (id_widget) REFERENCES widgets(id_widget) НА UNIQUE INDEX unique_installations (client_domain, id_widget)
-      RESUME: АТРИБУТЫ СТОЛБЦОВ ДЛЯ СОЗДАНИЯ СВЯЗНОСТИ PK->FK ЗАМЕНЕНЫ НА АТРИБУТ/ИНДЕКС УНИКАЛЬНОСТИ ЗНАЧЕНИЙ. ТЕПЕРЬ ВОЗМОЖНО АСИНХРОННОЕ УДАЛЕНИЕ СТРОК С ПЕРЕСЕЧЕНИЕМ СТОЛБЦОВ ИЗ ТАБЛИЦ, НО НЕВОЗМОЖНО ДОБАВЛЕНИЕ ПОВТОРЯЮЩИХСЯ ЗНАЧЕНИЙ.
-      TODO: ДОБАВИТЬ 409 ОТВЕТ В АПИ ИЗ-ЗА ОШИБКИ БД ПРИ ДОБАВЛЕНИИ ПОВТОРЯЮЩИХСЯ ЗНАЧЕНИЙ.
+    installations
+      1 - ЗАМЕНА [FOREIGN KEY (id_widget) REFERENCES widgets(id_widget)] НА [PRIMARY KEY (client_domain, id_widget)].
+      2 - ЗАМЕНА ТИПА ДАННЫХ СТОЛБЦА client_domain С text НА varchar(255), ЭТО НЕОБХОДИМО ДЛЯ П.1, ЧТОБЫ НЕ БЫЛО ОШИБКИ ПРИ СОЗДАНИИ ПАРНОГО ПЕРВИЧНОГО КЛЮЧА.
+      3 - В ДАМПЕ УБРАНЫ СТРОКИ С ОДИНАКОВЫМИ ПАРАМИ id_widget И client_domain. НА ПРОДОВОЙ ТАБЛИЦЕ ПЕРЕД ВНЕСЕНИЕМ ИЗМЕНЕНИЙ НУЖНО СДЕЛАТЬ ТО ЖЕ САМОЕ.
+
+  RESUME: УБРАНА СВЯЗНОСТЬ МЕЖДУ ТАБЛИЦАМИ ПО widget_id И ДОБАВЛЕН СОСТАВНОЙ ПЕРВИЧНЫЙ КЛЮЧ ИЗ client_domain И id_widget. ТЕПЕРЬ ВОЗМОЖНО АСИНХРОННОЕ УДАЛЕНИЕ СТРОК С ПЕРЕСЕЧЕНИЕМ СТОЛБЦОВ ИЗ ТАБЛИЦ, НО НЕВОЗМОЖНО ДОБАВЛЕНИЕ ПОВТОРЯЮЩИХСЯ ЗНАЧЕНИЙ.
+  TODO: 
+
   CRON
     
