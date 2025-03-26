@@ -6,7 +6,14 @@ INTOGROUP_CRM
       3 - В ДАМПЕ УБРАНЫ СТРОКИ С ОДИНАКОВЫМИ ПАРАМИ id_widget И client_domain. НА ПРОДОВОЙ ТАБЛИЦЕ ПЕРЕД ВНЕСЕНИЕМ ИЗМЕНЕНИЙ НУЖНО СДЕЛАТЬ ТО ЖЕ САМОЕ.
 
   RESUME: УБРАНА СВЯЗНОСТЬ МЕЖДУ ТАБЛИЦАМИ ПО widget_id И ДОБАВЛЕН СОСТАВНОЙ ПЕРВИЧНЫЙ КЛЮЧ ИЗ client_domain И id_widget. ТЕПЕРЬ ВОЗМОЖНО АСИНХРОННОЕ УДАЛЕНИЕ СТРОК С ПЕРЕСЕЧЕНИЕМ СТОЛБЦОВ ИЗ ТАБЛИЦ, НО НЕВОЗМОЖНО ДОБАВЛЕНИЕ ПОВТОРЯЮЩИХСЯ ЗНАЧЕНИЙ.
-  TODO: 
+  TODO: NONE
 
   CRON
-    
+    1 - НАПИСАН СКРИПТ НА BASH installations_statuses.sh ДЛЯ ЗАПУСКА В CRON ЕЖЕДНЕВНОЙ ПРОЦЕДУРЫ ПО ИЗМЕНЕНИЮ СТАТУСА УСТАНОВОК, В КОТОРЫХ date_expire < ТЕКУЩЕЙ ДАТЫ.
+    ДЛЯ РАБОТЫ НЕОБХОДИМО НАЛИЧИЕ MYSQL_HOST, MYSQL_DATABASE, MYSQL_USER И MYSQL_PASSWORD В ПЕРЕМЕННЫХ ОКРУЖЕНИЯ.
+    HOW_TO: 
+      path - полный путь к директории с файлом installations_statuses.sh
+      1 - chmod +x /path/installations_statuses.sh
+      2 - crontab -e
+      3 - добавить строку:
+        0 0 * * * /path/installations_statuses.sh
