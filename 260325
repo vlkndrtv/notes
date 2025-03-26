@@ -1,0 +1,9 @@
+INTOGROUP_CRM
+  MYSQL
+    widgets
+      1 - ЗАМЕНА АТРИБУТА id_widget С PRIMARY KEY НА UNIQUE
+      2 - ЗАМЕНА FOREIGN KEY (id_widget) REFERENCES widgets(id_widget) НА UNIQUE INDEX unique_installations (client_domain, id_widget)
+      RESUME: АТРИБУТЫ СТОЛБЦОВ ДЛЯ СОЗДАНИЯ СВЯЗНОСТИ PK->FK ЗАМЕНЕНЫ НА АТРИБУТ/ИНДЕКС УНИКАЛЬНОСТИ ЗНАЧЕНИЙ. ТЕПЕРЬ ВОЗМОЖНО АСИНХРОННОЕ УДАЛЕНИЕ СТРОК С ПЕРЕСЕЧЕНИЕМ СТОЛБЦОВ ИЗ ТАБЛИЦ, НО НЕВОЗМОЖНО ДОБАВЛЕНИЕ ПОВТОРЯЮЩИХСЯ ЗНАЧЕНИЙ.
+      TODO: ДОБАВИТЬ 409 ОТВЕТ В АПИ ИЗ-ЗА ОШИБКИ БД ПРИ ДОБАВЛЕНИИ ПОВТОРЯЮЩИХСЯ ЗНАЧЕНИЙ.
+  CRON
+    
