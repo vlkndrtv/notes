@@ -6,7 +6,6 @@ INTOGROUP_CRM
       3 - В ДАМПЕ УБРАНЫ СТРОКИ С ОДИНАКОВЫМИ ПАРАМИ id_widget И client_domain. НА ПРОДОВОЙ ТАБЛИЦЕ ПЕРЕД ВНЕСЕНИЕМ ИЗМЕНЕНИЙ НУЖНО СДЕЛАТЬ ТО ЖЕ САМОЕ.
 
   RESUME: УБРАНА СВЯЗНОСТЬ МЕЖДУ ТАБЛИЦАМИ ПО widget_id И ДОБАВЛЕН СОСТАВНОЙ ПЕРВИЧНЫЙ КЛЮЧ ИЗ client_domain И id_widget. ТЕПЕРЬ ВОЗМОЖНО АСИНХРОННОЕ УДАЛЕНИЕ СТРОК С ПЕРЕСЕЧЕНИЕМ СТОЛБЦОВ ИЗ ТАБЛИЦ, НО НЕВОЗМОЖНО ДОБАВЛЕНИЕ ПОВТОРЯЮЩИХСЯ ЗНАЧЕНИЙ.
-  TODO: NONE
 
   CRON
     1 - НАПИСАН СКРИПТ НА BASH installations_statuses.sh ДЛЯ ЗАПУСКА В CRON ЕЖЕДНЕВНОЙ ПРОЦЕДУРЫ ПО ИЗМЕНЕНИЮ СТАТУСА УСТАНОВОК, В КОТОРЫХ date_expire < ТЕКУЩЕЙ ДАТЫ.
@@ -17,3 +16,12 @@ INTOGROUP_CRM
       2 - crontab -e
       3 - добавить строку:
         0 0 * * * /path/installations_statuses.sh
+  API
+    Добавил метод DELETE
+    Эндпоинт - {{url}}/installations
+    Производит удаление записи об установке по {{id_widget}} и {{client_domain}}
+
+    {
+      "id_widget": {{id_widget}},
+      "client_domain": {{client_domain}}
+    }
